@@ -9,6 +9,7 @@ from PyQt6.QtCore import Qt
 
 
 class DatabaseConnection:
+    """This class create the connection with the database using SQLite"""
     def __init__(self, database_file="database.db"):
         self.database_file = database_file
 
@@ -17,8 +18,8 @@ class DatabaseConnection:
         return connection
 
 
-# QMainWindow allows us to have a menu bar, a tool and status bar.
 class MainWindow(QMainWindow):
+    """This class and QMainWindow allows us to have a menu bar, a tool and status bar."""
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Student Management System")
@@ -71,6 +72,7 @@ class MainWindow(QMainWindow):
         self.table.cellClicked.connect(self.cell_clicked)
 
     def load_data(self):
+        """This method  will load the data from the database"""
         # Create a connection with the database
         connection = sqlite3.connect("database.db")
         extract = connection.execute("SELECT * FROM students")
@@ -91,6 +93,7 @@ class MainWindow(QMainWindow):
 
     # This class will let the edit button appear when a cell is clicked
     def cell_clicked(self):
+        """This method let the edit button appear when a cell is clicked"""
         edit_button = QPushButton("Edit Record")
         edit_button.clicked.connect(self.edit)
 
@@ -109,28 +112,33 @@ class MainWindow(QMainWindow):
 
     # This class will save the new data from the add student window
     def insert_new_data(self):
+        """This class creates the add dialog box"""
         dialog = InsertDialog()
         dialog.exec()
 
     def search_student(self):
+        """This class creates the search dialog box"""
         dialog = SearchStudent()
         dialog.exec()
 
     def edit(self):
+        """This class creates the edit dialog box"""
         dialog = EditDialog()
         dialog.exec()
 
     def delete(self):
+        """This class creates the delete dialog box"""
         dialog = DeleteDialog()
         dialog.exec()
 
     def about(self):
+        """This class creates the 'about' dialog box"""
         dialog = AboutDialog()
         dialog.exec()
 
 
-# This class will create an add student window
 class InsertDialog(QDialog):
+    """This class creates the add student window"""
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Insert Student Data")
@@ -168,6 +176,7 @@ class InsertDialog(QDialog):
         self.setLayout(layout)
 
     def add_student(self):
+        """This method creates the connection to the database and add the new student"""
         name = self.student_name.text()
         course = self.course_name.currentText()
         mobile = self.mobile.text()
@@ -182,11 +191,13 @@ class InsertDialog(QDialog):
         self.accept()  # It closes the Add Student Window
 
     def close_window(self):
+        """This method closes the Add Student Window if cancel button pressed."""
         self.accept()  # It closes the Add Student Window if cancel button pressed.
 
 
 # Search window
 class SearchStudent(QDialog):
+    """This class creates the search window"""
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Search")
@@ -208,6 +219,8 @@ class SearchStudent(QDialog):
         self.setLayout(layout)
 
     def search_student(self):
+        """This method searches for the name of the student inserted and highlights the name in the table"""
+
         # Select the name typed in the box
         name = self.student_name.text()
         # Create a connection with the database
@@ -230,6 +243,7 @@ class SearchStudent(QDialog):
 
 
 class EditDialog(QDialog):
+    """This class creates the edit student window"""
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Update Student Data")
@@ -279,6 +293,7 @@ class EditDialog(QDialog):
         self.accept()  # It closes the Add Student Window if cancel button pressed.
 
     def update_student(self):
+        """This method updates the student contact details"""
         connection = DatabaseConnection().connect()
         cursor = connection.cursor()
         cursor.execute("UPDATE students SET name = ?, course = ?,"
@@ -297,6 +312,7 @@ class EditDialog(QDialog):
 
 
 class DeleteDialog(QDialog):
+    """This class creates the delete student window"""
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Delete Student Data")
@@ -318,6 +334,8 @@ class DeleteDialog(QDialog):
         yes.clicked.connect(self.delete_student)
 
     def delete_student(self):
+        """This method can delete the student selected"""
+
         # To identify the student selected from table
         index = main_window.table.currentRow()
 
@@ -342,6 +360,7 @@ class DeleteDialog(QDialog):
 
 
 class AboutDialog(QMessageBox):
+    """This class creates the 'about' window"""
     def __init__(self):
         super().__init__()
         self.setWindowTitle("About")

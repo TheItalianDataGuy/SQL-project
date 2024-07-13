@@ -25,8 +25,8 @@ class DatabaseConnection:
         return connection
 
 
-# QMainWindow allows us to have a menu bar, a tool and status bar.
 class MainWindow(QMainWindow):
+    """This class and QMainWindow allows us to have a menu bar, a tool and status bar."""
     def __init__(self):
         """This method create the GUI interface"""
         super().__init__()
@@ -227,6 +227,7 @@ class SearchStudent(QDialog):
 
     def search_student(self):
         """This method searches for the name of the student inserted and highlights the name in the table"""
+
         # Select the name typed in the box
         name = self.student_name.text()
         # Create a connection with the database
@@ -342,6 +343,7 @@ class DeleteDialog(QDialog):
 
     def delete_student(self):
         """This method can delete the student selected"""
+
         # To identify the student selected from table
         index = main_window.table.currentRow()
 
