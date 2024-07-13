@@ -341,6 +341,7 @@ class DeleteDialog(QDialog):
         yes.clicked.connect(self.delete_student)
 
     def delete_student(self):
+        """This method can delete the student selected"""
         # To identify the student selected from table
         index = main_window.table.currentRow()
 
