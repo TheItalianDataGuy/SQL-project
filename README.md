@@ -1,6 +1,6 @@
 # Student Management System
 
-This project is a **Student Management System** built using Python and the PyQt6 framework. The application provides a GUI for managing student records, including adding, editing, searching, and deleting student data stored in a MySQL database.
+This project is a **Student Management System** built using Python and the PyQt6 framework. The application provides a GUI for managing student records, including adding, editing, searching, and deleting student data stored in a MySQL and SQLite database.
 
 ## Features
 
@@ -15,6 +15,7 @@ This project is a **Student Management System** built using Python and the PyQt6
 - Python 3.x
 - PyQt6
 - MySQL Database
+- SQLite Database
 
 ## Installation
 
